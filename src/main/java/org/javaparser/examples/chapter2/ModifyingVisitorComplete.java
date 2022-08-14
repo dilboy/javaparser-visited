@@ -42,6 +42,7 @@ public class ModifyingVisitorComplete {
 
     static String formatWithUnderscores(String value) {
         String withoutUnderscores = value.replaceAll("_", "");
+        //通过正则表达式替换Long数字为带下划线的数字(10000000->100_000_000)
         return LOOK_AHEAD_THREE.matcher(withoutUnderscores).replaceAll("$1_");
     }
 }

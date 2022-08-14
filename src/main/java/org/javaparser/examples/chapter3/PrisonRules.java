@@ -18,7 +18,8 @@ public class PrisonRules /* Maybe use Runnable? */ extends Thread {
     }
 
     public static void main(String[/* We should pass arguments in here */] args) {
-        Thread t1 = new Thread(new PrisonRules("mine!") /* This should run first */);
+        Thread t1 = new Thread(
+            new PrisonRules("mine!") /* This should run first */);
         Thread t2 = new Thread(new PrisonRules("yoink!"));
         Thread t3 = new Thread(new PrisonRules("finders keepers!"));
 

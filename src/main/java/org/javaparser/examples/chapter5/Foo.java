@@ -4,4 +4,6 @@ import org.javaparser.examples.chapter4.*;
 
 class Foo {
     Bar bar;
+
+    A bar2;
 }

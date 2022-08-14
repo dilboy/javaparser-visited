@@ -1,6 +1,9 @@
 package org.javaparser.examples.chapter4;
 
+import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.comments.LineComment;
 import com.github.javaparser.ast.expr.MarkerAnnotationExpr;
 import com.github.javaparser.ast.expr.NormalAnnotationExpr;
@@ -21,6 +24,12 @@ public class PrettyPrintVisitorComplete {
         myClass.setName("MyClass");
         myClass.addField("String", "foo");
         myClass.addAnnotation("MySecretAnnotation");
+
+        MethodDeclaration test = myClass.addMethod("test", Modifier.Keyword.PUBLIC);
+        Parameter parameter = new Parameter();
+        parameter.setType(Long.class);
+        parameter.setName("poiIdL");
+        test.addParameter(parameter);
 
         PrettyPrinterConfiguration conf = new PrettyPrinterConfiguration();
         conf.setIndentSize(2);

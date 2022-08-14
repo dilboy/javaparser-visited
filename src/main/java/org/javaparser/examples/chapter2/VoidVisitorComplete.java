@@ -26,7 +26,7 @@ public class VoidVisitorComplete {
         methodNames.forEach(n -> System.out.println("Method Name Collected: " + n));
     }
 
-    private static class MethodNamePrinter extends VoidVisitorAdapter<Void> {
+    public static class MethodNamePrinter extends VoidVisitorAdapter<Void> {
 
         @Override
         public void visit(MethodDeclaration md, Void arg) {
@@ -35,7 +35,7 @@ public class VoidVisitorComplete {
         }
     }
 
-    private static class MethodNameCollector extends VoidVisitorAdapter<List<String>> {
+    public static class MethodNameCollector extends VoidVisitorAdapter<List<String>> {
 
         @Override
         public void visit(MethodDeclaration md, List<String> collector) {

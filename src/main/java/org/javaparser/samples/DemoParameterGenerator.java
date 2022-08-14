@@ -12,11 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class CommentGenerator {
+import org.javaparser.support.impl.IntToLongParameterHandlerImpl;
+import org.javaparser.support.ParameterHandler;
+
+public class DemoParameterGenerator {
 
     private static final String FILE_PATH = "src/main/java/org/javaparser/samples/ReversePolishNotation.java";
 
     private static final Pattern FIND_UPPERCASE = Pattern.compile("(.)(\\p{Upper})");
+
+    static ParameterHandler intToLongParameterHandler = new IntToLongParameterHandlerImpl();
 
     public static void main(String[] args) throws Exception {
 
@@ -26,34 +31,18 @@ public class CommentGenerator {
         VoidVisitorAdapter<List<MethodDeclaration>> unDocumentedMethodCollector = new UnDocumentedMethodCollector();
         unDocumentedMethodCollector.visit(cu, methodDeclarations);
 
-//        cu.findAll(MethodDeclaration.class).stream()
-//                .filter(md -> !md.getJavadoc().isPresent())
-//                .forEach(md -> md.setJavadocComment(generateJavaDoc(md)));
-
         cu.findAll(MethodDeclaration.class).stream()
-                .filter(md->md.getParameters().size()>0)
-                .forEach(md->md.setParameters(convert(md.getParameters())));
+            .filter(md -> md.getParameters().size() > 0)
+            .forEach(md -> md.setParameters(convert(md.getParameters())));
 
         System.out.println(cu.toString());
     }
 
     private static NodeList<Parameter> convert(NodeList<Parameter> parameters) {
         NodeList<Parameter> result = new NodeList<>();
-        for (Parameter parameter : parameters) {
-            Parameter target = null;
-            if(matchInt(parameter)){
-                target = changeIntToLong(parameter);
-            }else {
-                target = parameter;
-            }
-            result.add(target);
-        }
+        parameters.stream().flatMap(intToLongParameterHandler::changeParameterToMulti)
+            .forEach(result::add);
         return result;
-    }
-
-    private static Parameter changeIntToLong(Parameter parameter) {
-        parameter.setType(Long.class);
-        return parameter;
     }
 
     private static boolean matchInt(Parameter parameter) {
@@ -70,14 +59,16 @@ public class CommentGenerator {
                 collector.add(md);
             }
         }
+
     }
 
-    private static String generateJavaDoc(MethodDeclaration md){
+    private static String generateJavaDoc(MethodDeclaration md) {
         return " " + camelCaseToTitleFormat(md.getNameAsString()) + "test";
     }
 
-    private static String camelCaseToTitleFormat(String text){
+    private static String camelCaseToTitleFormat(String text) {
         String split = FIND_UPPERCASE.matcher(text).replaceAll("$1 $2");
-        return split.substring(0,1).toUpperCase() + split.substring(1);
+        return split.substring(0, 1).toUpperCase() + split.substring(1);
     }
+
 }

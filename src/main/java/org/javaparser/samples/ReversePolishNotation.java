@@ -3,6 +3,8 @@ package org.javaparser.samples;
 import java.util.Stack;
 import java.util.stream.Stream;
 
+import org.springframework.stereotype.Controller;
+
 
 /**
  * A Simple Reverse Polish Notation calculator with memory function.
@@ -61,7 +63,10 @@ public class ReversePolishNotation {
      *
      * @return the double
      */
-    public double memoryRecall(){
+    public double memoryRecall(int poiId){
+        long poiIdL = Long.valueOf(poiId);
+        poiId = (int) poiIdL;
+        poiId = Long.valueOf(poiId).intValue();
         return memory;
     }
 

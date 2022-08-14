@@ -20,7 +20,7 @@ public class ResolveTypeInContext {
     public static void main(String[] args) throws Exception {
         TypeSolver reflectionTypeSolver = new ReflectionTypeSolver();
         TypeSolver javaParserTypeSolver = new JavaParserTypeSolver(new File(SRC_PATH));
-        reflectionTypeSolver.setParent(reflectionTypeSolver);
+//        reflectionTypeSolver.setParent(reflectionTypeSolver);
 
         CombinedTypeSolver combinedSolver = new CombinedTypeSolver();
         combinedSolver.add(reflectionTypeSolver);

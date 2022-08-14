@@ -6,5 +6,11 @@ class A {
         System.out.println(1);
         System.out.println("hi");
         System.out.println(param);
-    } 
+    }
+
+    public void foo2(Object param) {
+        System.out.println("hi");
+        System.out.println(param);
+        System.out.println(1);
+    }
 }
