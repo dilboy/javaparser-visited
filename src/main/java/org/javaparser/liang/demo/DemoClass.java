@@ -19,15 +19,22 @@ public class DemoClass {
     private double memory = 0;
 
     /**
-     * Memory Recall uses the number in stored memory, defaulting to 0.
-     *
-     * @return the double
+     * 这里会新建一个poiId的接口,基础类型换成Long
      */
     @RequestMapping
     public double memoryRecall(int poiId){
         String name = String.valueOf(poiId);
         int result = poiId + 1;
         return memory;
+    }
+
+    /**
+     * 这里会新建一个poiId的接口
+     *  (入参换成Long,出参也换成Long类型)
+     */
+    @RequestMapping
+    public Integer demoIntegerInterface(Integer poiId,String name){
+        return poiId;
     }
 
     private void handle(int poiId){
